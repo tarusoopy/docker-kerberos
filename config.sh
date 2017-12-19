@@ -17,11 +17,15 @@ EOF
 }
 
 fix_hostname() {
-  sed -i "/^hosts:/ s/ *files dns/ dns files/" /etc/nsswitch.conf
+  sed -i "/^passwd:/ s/ *files/ / files ldap/" /etc/nsswitch.conf
+  sed -i "/^shadow:/ s/ *files/ / files ldap/" /etc/nsswitch.conf
+  sed -i "/^group:/ s/ *files/ / files ldap/" /etc/nsswitch.conf
+  sed -i "/^hosts:/ s/ *files dns/ files ldap dns/" /etc/nsswitch.conf
 }
 
 create_config() {
-  : ${KDC_ADDRESS:=$(hostname -f)}
+#  : ${KDC_ADDRESS:=$(hostname -f)}
+  KDC_ADDRESS=$(hostname).$DOMAIN_REALM
 
   cat>/etc/krb5.conf<<EOF
 [logging]
@@ -47,6 +51,12 @@ create_config() {
  .$DOMAIN_REALM = $REALM
  $DOMAIN_REALM = $REALM
 EOF
+
+}
+
+set_ldap_uri() {
+  sed -i "/^uri/ s/127.0.0.1/$LDAPSERVER/" /etc/nslcd.conf
+  sed -i "/^base/ s/dc=example,dc=com/$BASE_DC/" /etc/nslcd.conf
 }
 
 create_db() {
@@ -71,6 +81,11 @@ restart_kdc() {
 create_admin_user() {
   kadmin.local -q "addprinc -pw $KERB_ADMIN_PASS $KERB_ADMIN_USER/admin"
   echo "*/admin@$REALM *" > /var/kerberos/krb5kdc/kadm5.acl
+  kadmin.local -q "addprinc -pw kldap ldap/kserver.edt.org"
+  kadmin.local -q "addprinc -pw khost host/kserver.edt.org"
+  kadmin.local -q "addprinc -pw kldap ldap/ldap.edt.org"
+  kadmin.local -q "addprinc -pw khost ldap/ldaprepl.edt.org"
+  kadmin.local -q "addprinc -pw kuser01 user01"
 }
 
 main() {
@@ -79,6 +94,7 @@ main() {
 
   if [ ! -f /kerberos_initialized ]; then
     create_config
+    set_ldap_uri
     create_db
     create_admin_user
     start_kdc
