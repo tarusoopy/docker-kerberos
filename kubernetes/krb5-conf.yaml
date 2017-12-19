@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: krb5kdc-env
+  namespace: nakano-a
+data:
+  REALM: "EDT.ORG"
+  DOMAIN_REALM: "edt.org"
+  KERB_MASTER_KEY: "admin"
+  KERB_ADMIN_USER: "admin"
+  KERB_ADMIN_PASS: "admin"
+  SEARCH_DOMAINS: "edt.org"
+  NAMESERVER_IP: "172.16.0.1"
+  LDAPSERVER: "ldap"
+  BASE_DC: "dc=edt,dc=org"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: krb5-etc
+  namespace: nakano-a
+data:
+  krb5.conf: |
+    [libdefaults]
+     dns_lookup_realm = false
+     ticket_lifetime = 24h
+     renew_lifetime = 7d
+     forwardable = true
+     rdns = false
+     default_realm = ${KRB5_REALM}
+     
+     [realms]
+     ${KRB5_REALM} = {
+        kdc = ${KRB5_KDC}
+        admin_server = ${KRB5_ADMINSERVER}
+     }
+  krb5_pass: |
+    ${KRB5_PASS}
+    ${KRB5_PASS}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kdc-varlib
+  namespace: nakano-a
+data:
+  kadm5.acl: |
+    */admin@${KRB5_REALM} *
+    superuser@{KRB5_REALM} *
+    */service@${KRB5_REALM} aci
