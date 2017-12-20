@@ -11,7 +11,7 @@ Cloudbreak does this with a [consul plugn](https://github.com/sequenceiq/consul-
 
 #### Quick start
 ```
-docker run -d --net=host -v /etc/krb5.conf:/etc/krb5.conf -v /dev/urandom:/dev/random --name kerberos -e BOOTSTRAP=0 sequenceiq/kerberos
+docker run -d --net=host -v /etc/krb5.conf:/etc/krb5.conf -v /dev/urandom:/dev/random --name kerberos -e BOOTSTRAP=0 tarusoopy/kerberos
 ```
 The containers have a pretty bad entropy level so the KDC won't start because of this. We can overcome this by using `/dev/urandom` which is less secure but does not care about entropy. 
 The `/etc/krb5.conf` is shared with the host so the generated configuration will be present on the host as well. We need to share this configuration with the `ambari-server` container as well or you need to take care of the copying.
