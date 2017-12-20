@@ -59,6 +59,19 @@ set_ldap_uri() {
   sed -i "/^base/ s/dc=example,dc=com/$BASE_DC/" /etc/nslcd.conf
 }
 
+add_kdc_relm() {
+  cat>>/var/kerberos/krb5kdc/kdc.conf<<EOF
+
+ $REALM = {
+  #master_key_type = aes256-cts
+  acl_file = /var/kerberos/krb5kdc/kadm5.acl
+  dict_file = /usr/share/dict/words
+  admin_keytab = /var/kerberos/krb5kdc/kadm5.keytab
+  supported_enctypes = aes256-cts:normal aes128-cts:normal des3-hmac-sha1:normal arcfour-hmac:normal des-hmac-sha1:normal de\
+s-cbc-md5:normal des-cbc-crc:normal
+EOF
+}
+
 create_db() {
   /usr/sbin/kdb5_util -P $KERB_MASTER_KEY -r $REALM create -s
 }
@@ -95,6 +108,7 @@ main() {
   if [ ! -f /kerberos_initialized ]; then
     create_config
     set_ldap_uri
+    add_kdc_relm
     create_db
     create_admin_user
     start_kdc
