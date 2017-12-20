@@ -16,3 +16,6 @@ spec:
       containers:
       - name: krb5kdc
         image: tarusoopy/docker-kerberos
+        envFrom:
+        - configMapRef:
+            name: krb5kdc-env
