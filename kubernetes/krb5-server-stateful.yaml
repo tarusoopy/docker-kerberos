@@ -4,7 +4,7 @@ metadata:
   labels:
     app: krb5kdc
   name: krb5kdc
-  namespace: nakano-a
+  namespace: krb5ldap
 spec:
   serviceName: krb5kdc
   replicas: 1

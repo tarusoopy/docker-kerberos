@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: krb5kdc-env
-  namespace: nakano-a
+  namespace: krb5ldap
 data:
   REALM: "EDT.ORG"
   DOMAIN_REALM: "edt.org"
