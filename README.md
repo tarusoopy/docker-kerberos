@@ -23,6 +23,7 @@ Useful environment variables:
 | --------------------- | ----------------------------- |
 | `REALM`               | the Kerberos realm            |
 | `DOMAIN_REALM`        | the DNS domain for the realm  |
+| `KDC_ADDRESS`         | the FQDN for the KDC          |
 | `KERB_MASTER_KEY`     | master key for the KDC        |
 | `KERB_ADMIN_USER`     | administrator account name    |
 | `KERB_ADMIN_PASS`     | administrator's password      |

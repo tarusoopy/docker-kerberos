@@ -25,7 +25,7 @@ fix_hostname() {
 
 create_config() {
 #  : ${KDC_ADDRESS:=$(hostname -f)}
-  KDC_ADDRESS=$(hostname).$DOMAIN_REALM
+#  KDC_ADDRESS=$(hostname).$DOMAIN_REALM
 
   cat>/etc/krb5.conf<<EOF
 [logging]

@@ -4,12 +4,13 @@ metadata:
   name: krb5kdc-env
   namespace: krb5ldap
 data:
-  REALM: "EDT.ORG"
-  DOMAIN_REALM: "edt.org"
+  REALM: "EXAMPLE.COM"
+  DOMAIN_REALM: "example.com"
+  KDC_ADDRESS: "krb5kdc.example.com"
   KERB_MASTER_KEY: "admin"
   KERB_ADMIN_USER: "admin"
   KERB_ADMIN_PASS: "admin"
-  SEARCH_DOMAINS: "edt.org"
+  SEARCH_DOMAINS: "example.com"
   NAMESERVER_IP: "172.16.0.1"
-  LDAPSERVER: "ldap"
-  BASE_DC: "dc=edt,dc=org"
+  LDAPSERVER: "ldap.example.com"
+  BASE_DC: "dc=example,dc=com"
