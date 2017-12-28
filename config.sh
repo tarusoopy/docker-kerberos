@@ -8,6 +8,8 @@
 : ${KERB_ADMIN_USER:=admin}
 : ${KERB_ADMIN_PASS:=admin}
 : ${SEARCH_DOMAINS:=search.consul node.dc1.consul}
+: ${KDC_PORT:=88}
+: ${ADMIN_PORT:=749}
 
 fix_nameserver() {
   cat>/etc/resolv.conf<<EOF
@@ -43,8 +45,8 @@ create_config() {
 
 [realms]
  $REALM = {
-  kdc = $KDC_ADDRESS
-  admin_server = $KDC_ADDRESS
+  kdc = $KDC_ADDRESS:$KDC_PORT
+  admin_server = $KDC_ADDRESS:$ADMIN_PORT
  }
 
 [domain_realm]
@@ -94,11 +96,6 @@ restart_kdc() {
 create_admin_user() {
   kadmin.local -q "addprinc -pw $KERB_ADMIN_PASS $KERB_ADMIN_USER/admin"
   echo "*/admin@$REALM *" > /var/kerberos/krb5kdc/kadm5.acl
-  kadmin.local -q "addprinc -pw kldap ldap/kserver.edt.org"
-  kadmin.local -q "addprinc -pw khost host/kserver.edt.org"
-  kadmin.local -q "addprinc -pw kldap ldap/ldap.edt.org"
-  kadmin.local -q "addprinc -pw khost ldap/ldaprepl.edt.org"
-  kadmin.local -q "addprinc -pw kuser01 user01"
 }
 
 main() {

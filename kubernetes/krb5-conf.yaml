@@ -7,6 +7,8 @@ data:
   REALM: "EXAMPLE.COM"
   DOMAIN_REALM: "example.com"
   KDC_ADDRESS: "krb5kdc.example.com"
+  KDC_PORT: 30088
+  ADMIN_PORT: 30749
   KERB_MASTER_KEY: "admin"
   KERB_ADMIN_USER: "admin"
   KERB_ADMIN_PASS: "admin"

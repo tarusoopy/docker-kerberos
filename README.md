@@ -28,6 +28,8 @@ Useful environment variables:
 | `KERB_ADMIN_USER`     | administrator account name    |
 | `KERB_ADMIN_PASS`     | administrator's password      |
 | `SEARCH_DOMAINS`      | domain suffix search list     |
+| `KDC_PORT`            | KDC port(default 88)          |
+| `ADMIN_PORT`          | AdminServer port(default 749) |
 
 ### Test
 Once kerberos is enabled you need a `ticket` to execute any job on the cluster. Here's an example to get a ticket:
