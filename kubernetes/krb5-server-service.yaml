@@ -11,12 +11,10 @@ spec:
       name: krb5kdc
       targetPort: 88
       nodePort: 30088
-  type: NodePort
-  ports:
     - port: 749
       name: krb5kdc-admin
       targetPort: 749
       nodePort: 30749
-  type: NodePort
+  type: LoadBlancer
   selector:
     app: krb5kdc
