@@ -15,6 +15,6 @@ spec:
       name: krb5kdc-admin
       targetPort: 749
       nodePort: 30749
-  type: LoadBlancer
+  type: LoadBalancer
   selector:
     app: krb5kdc
