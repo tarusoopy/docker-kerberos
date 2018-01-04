@@ -7,12 +7,14 @@ metadata:
   namespace: krb5ldap
 spec:
   ports:
-    - port: 88
-      name: krb5kdc
+    - name: krb5kdc
+      protocol: TCP
+      port: 88
       targetPort: 88
       nodePort: 30088
-    - port: 749
-      name: krb5kdc-admin
+    - name: krb5kdc-admin
+      protocol: TCP
+      port: 749
       targetPort: 749
       nodePort: 30749
   type: LoadBalancer
