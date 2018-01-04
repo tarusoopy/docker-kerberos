@@ -17,6 +17,6 @@ spec:
       port: 749
       targetPort: 749
       nodePort: 30749
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: krb5kdc
