@@ -30,6 +30,9 @@ Useful environment variables:
 | `SEARCH_DOMAINS`      | domain suffix search list     |
 | `KDC_PORT`            | KDC port(default 88)          |
 | `ADMIN_PORT`          | AdminServer port(default 749) |
+| `NAMESERVER_IP`	| DNS server IP or hostname     |
+| `LDAPSERVER`          | LDAP server hostname or IP    |
+| `BASE_DC`             | LDAP Base dc ex."dc=example"  |
 
 ### Test
 Once kerberos is enabled you need a `ticket` to execute any job on the cluster. Here's an example to get a ticket:
