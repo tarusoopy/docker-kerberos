@@ -17,6 +17,16 @@ spec:
       port: 749
       targetPort: 749
       nodePort: 30749
+    - name: krb5kdc-u
+      protocol: UDP
+      port: 88
+      targetPort: 88
+      nodePort: 30088
+    - name: krb5kdc-admin-u
+      protocol: UDP
+      port: 749
+      targetPort: 749
+      nodePort: 30749
   type: NodePort
   selector:
     app: krb5kdc
