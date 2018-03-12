@@ -62,7 +62,7 @@ set_ldap_uri() {
 }
 
 add_kdc_relm() {
-  cat>>/var/kerberos/krb5kdc/kdc.conf<<EOF
+  cat>/var/kerberos/krb5kdc/kdc.conf<<EOF
 
  $REALM = {
   #master_key_type = aes256-cts
